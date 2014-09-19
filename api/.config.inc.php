@@ -1,0 +1,85 @@
+<?php
+
+   /************************************************************************
+    * REQUIRED
+    *
+    * Access Key ID and Secret Acess Key ID, obtained from:
+    * http://aws.amazon.com
+    ***********************************************************************/
+    define('AWS_ACCESS_KEY_ID', 'AKIAJOHBJKGVCG2AELKQ');
+    define('AWS_SECRET_ACCESS_KEY', '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');
+
+   /************************************************************************
+    * REQUIRED
+    *
+    * All MWS requests must contain a User-Agent header. The application
+    * name and version defined below are used in creating this value.
+    ***********************************************************************/
+    define('APPLICATION_NAME', 'us-storage-api');
+    define('APPLICATION_VERSION', '1.0');
+
+   /************************************************************************
+    * REQUIRED
+    *
+    * All MWS requests must contain the seller's merchant ID and
+    * marketplace ID.
+    ***********************************************************************/
+    define ('MERCHANT_ID', 'ACOFBF3FKRFN9');
+    define ('MARKETPLACE_ID', 'ATVPDKIKX0DER');
+
+
+   /************************************************************************
+    * OPTIONAL ON SOME INSTALLATIONS
+    *
+    * Set include path to root of library, relative to Samples directory.
+    * Only needed when running library from local directory.
+    * If library is installed in PHP include path, this is not needed
+    ***********************************************************************/
+    //set_include_path("~/us_storage/us-storage/lib/amazon-mws-2011-10-01-orders/src");
+    set_include_path("../lib/amazon-mws-2011-10-01-orders/src");
+    set_include_path(get_include_path() . PATH_SEPARATOR . '.');
+    echo get_include_path() . PATH_SEPARATOR;
+
+   /************************************************************************
+    * OPTIONAL ON SOME INSTALLATIONS
+    *
+    * Autoload function is reponsible for loading classes of the library on demand
+    *
+    * NOTE: Only one __autoload function is allowed by PHP per each PHP installation,
+    * and this function may need to be replaced with individual require_once statements
+    * in case where other framework that define an __autoload already loaded.
+    *
+    * However, since this library follow common naming convention for PHP classes it
+    * may be possible to simply re-use an autoload mechanism defined by other frameworks
+    * (provided library is installed in the PHP include path), and so classes may just
+    * be loaded even when this function is removed
+    ***********************************************************************/
+     function __autoload($className){
+        //echo "************************";
+        echo $className;
+        //echo "************************";
+        echo DIRECTORY_SEPARATOR;
+        $filePath = str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
+        
+        echo $filePath;
+        $includePaths = explode(PATH_SEPARATOR, get_include_path());
+
+        var_dump($includePaths);
+        var_dump($filePath);
+
+        foreach($includePaths as $includePath){
+            
+
+            echo "******1***1*****1**********";
+            echo $includePath . DIRECTORY_SEPARATOR . $filePath;
+            echo "*******2***2******2********";
+
+
+            if(file_exists($includePath . DIRECTORY_SEPARATOR . $filePath)){
+                echo "kkkkkk";
+                require_once $filePath;
+                return;
+            }
+        }
+    }
+
